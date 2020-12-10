@@ -13,7 +13,7 @@ two columns (left, right)
 .left-side {
     /*脱离原始文档流*/
     position: absolute;
-    top: 0;
+    top: 70px;
     left: 0;
     height: 100vh;
     width: 40vw;
@@ -23,5 +23,7 @@ two columns (left, right)
 .right-side {
     /*margin-left把right移动到右侧*/
     margin-left: 40vw;
+    height: 100vh;
+    border: 1px solid red;
 }
 
