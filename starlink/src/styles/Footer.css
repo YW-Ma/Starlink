@@ -1,0 +1,10 @@
+.footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    buttom: 0;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    /*margin auto -- put it in center*/
+}

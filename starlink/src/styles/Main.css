@@ -1,0 +1,27 @@
+/*
+现在要做的是两栏排布
+two columns (left, right)
+可以用：flex, float, position三种方式来实现，
+这里试一试position
+*/
+.Main {
+    position: relative;
+    /*限定左右排布的范围在Main内部*/
+    height: 760px;
+}
+
+.left-side {
+    /*脱离原始文档流*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 40vw;
+    border: 1px solid red;
+}
+
+.right-side {
+    /*margin-left把right移动到右侧*/
+    margin-left: 40vw;
+}
+
