@@ -5,9 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    // I removed the strick mode, since it conflicts with Ant Design - 12/10/2020
+    <App />,
   document.getElementById('root')
 );
 
