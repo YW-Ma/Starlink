@@ -6,7 +6,9 @@ of its descendents. So: position: relative
   text-align: center;
   min-height: 100vh;
   overflow: hidden;
-  display: block;
   position: relative;
   padding-bottom: 5px;
+
+  display: grid;
+  grid-template-rows: 70px 1fr 15px;
 }

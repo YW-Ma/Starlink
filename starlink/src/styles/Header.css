@@ -1,8 +1,6 @@
 .App-header {
     display: flex;
     align-items: center;
-    height: 70px;
-    width: 100vw;
     color: white;
     background-color: #00305c;
     box-shadow: gray 0px 2px 5px;
