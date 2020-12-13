@@ -11,21 +11,25 @@ class SatSettingForm extends Component {
     const { getFieldDecorator } = this.props.form;
     // 这个props是哪里来的？
     // - 高阶组件提供的props (SatSettingForm -> Form.create()(..here..) -> output SatSetting
+
+    // responsive design -- design the formItemLayout and pass to Form
     const formItemLayout = {
-      labelCol: {
+      labelCol: {         // label
         xs: { span: 24 },
         sm: { span: 11 }
       },
-      wrapperCol: {
+      wrapperCol: {       // wrapper
         xs: { span: 24 },
         sm: { span: 13 }
       }
     };
+
+    // return JSX
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <Form {...formItemLayout} onSubmit={this.showSatellite} className="show-nearby">
         <Form.Item label="Longitude(degrees):">
           {
-            getFieldDecorator('email', {
+            getFieldDecorator('longitude', {
               rules: [
                 {
                   required: true,
@@ -100,14 +104,33 @@ class SatSettingForm extends Component {
           }
         </Form.Item>
 
+        <Form.Item className="show-nearby">
+          <Button type="primary" htmlType="submit">Find Nearby Satellite</Button>
+        </Form.Item>
       </Form>
     );
   }
+  // implement showSatellite in our component
+  // 1. prevent default GET and refresh
+  // 2. get the value of the form
+  showSatellite = e => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log(values);
+      }
+      console.log(err);
+    });
+  }
 }
+
+
+
+
 /*
 Form.create()的返回函数是高阶组件，
   传入SatSettingForm组件，返回SatSetting组件。
 我们export 返回的组件。
 */
-const SatSetting = Form.create()(SatSettingForm)
+const SatSetting = Form.create({name: 'satellite-setting'})(SatSettingForm)
 export default SatSetting;

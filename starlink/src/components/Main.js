@@ -8,7 +8,9 @@ class Main extends Component {
         <div className="left-side">
           <SatSetting/>
         </div>
-        <div className="right-side">right</div>
+        <div className="right-side">
+          right
+        </div>
       </div>
     );
   }
