@@ -1,17 +1,19 @@
 .sat-setting {
     width: 100%;
-    background-color: #fbfbfb;
-    border: 1px solid #d9d9d9;
-    padding: 10px 15px 0px 15px;
     text-align: left;
+    padding: 10px 10px 0 15px;
+            /*top bottom left right*/
+    background: #fbfbfb;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
+/*居中显示按钮*/
+/*上下居中按钮文字*/
 .show-nearby {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
-}
-
-.show-nearby .ant-form-item-control {
     text-align: center;
 }
 

@@ -26,7 +26,7 @@ class SatSettingForm extends Component {
 
     // return JSX
     return (
-      <Form {...formItemLayout} onSubmit={this.showSatellite} className="show-nearby">
+      <Form {...formItemLayout} onSubmit={this.showSatellite} className="sat-setting">
         <Form.Item label="Longitude(degrees):">
           {
             getFieldDecorator('longitude', {
@@ -100,7 +100,10 @@ class SatSettingForm extends Component {
                   message: "Please input your Duration",
                 }
               ],
-            })(<InputNumber placeholder="Please input Duration" min={0} max={90} style={{width: "100%"}} />)
+            })(<InputNumber placeholder="Please input Duration"
+                            min={0} max={90}
+                            style={{width: "100%"}}
+            />)
           }
         </Form.Item>
 
@@ -117,9 +120,10 @@ class SatSettingForm extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values);
+        this.props.onShow(values);
+      } else {
+        console.error(err);
       }
-      console.log(err);
     });
   }
 }
