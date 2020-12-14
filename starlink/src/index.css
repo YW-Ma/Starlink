@@ -4,6 +4,7 @@
 @import "./styles/Footer.css";
 @import "./styles/Main.css";
 @import "./styles/SatSetting.css";
+@import "./styles/SatList.css";
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
