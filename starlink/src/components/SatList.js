@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {bindReporter} from "web-vitals/dist/lib/bindReporter"
 import { List, Avatar, Button, Checkbox, Spin } from "antd";
-import ListItem from "antd/es/transfer/ListItem"
 import satelliteLogo from "../assets/images/satellite.svg"
 
 // 显示返回的数据 - List
@@ -27,6 +25,7 @@ class SatList extends Component {
           type="primary"
           className="sat-list-btn"
           size="large"
+          onClick={this.onTrackOnMap}
         >
           Track on the map
         </Button>
@@ -103,6 +102,9 @@ class SatList extends Component {
     return list;
   }
 
+  onTrackOnMap = () => {
+    this.props.onShowMap(this.state.selected);
+  }
 }
 
 export default SatList;

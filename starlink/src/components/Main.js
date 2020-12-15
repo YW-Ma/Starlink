@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import SatSetting from "./SatSetting";
-import SatList from "./SatList";
 import axios from 'axios';
 
+import SatSetting from "./SatSetting";
+import SatList from "./SatList";
+import WorldMap from "./WorldMap"
+
 import {NEARBY_SATELLITE, SAT_API_KEY, STARLINK_CATEGORY} from "../constants"
+
 
 class Main extends Component {
   state = {
@@ -22,11 +25,12 @@ class Main extends Component {
           <SatList
             sateInfo={this.state.satInfo}
             isLoading={this.state.isLoadingList}
+            onShowMap={this.onShowMap}
             className="sat-list"
           />
         </div>
         <div className="right-side">
-          right
+          <WorldMap/>
         </div>
       </div>
     );
@@ -70,6 +74,10 @@ class Main extends Component {
       .catch(error => {
         console.log('err in fetch satellite -> ', error);
       })
+  }
+
+  onShowMap = (satList) => {
+    console.log(satList)
   }
 
 }
