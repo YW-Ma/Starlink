@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import {feature} from "topojson-client"
 import { geoKavrayskiy7 } from 'd3-geo-projection';
-import { geoGraticule, geoPath, geoEqualEarth } from 'd3-geo';
+import { geoGraticule, geoPath } from 'd3-geo';
 import { select as d3Select } from 'd3-selection';
 
 import {WORLD_MAP_URL} from "../constants"
@@ -32,7 +32,6 @@ class WorldMap extends Component {
   }
 
   generateMap = land => {
-    console.log("In generateMap: land is",land)
     const projection = geoKavrayskiy7()                            // Step 1: configure the projection method
       .scale(170)
       //.translate(width / 2, height / 2)                          // NOTICE: translate need an array
@@ -41,8 +40,7 @@ class WorldMap extends Component {
 
     const graticule = geoGraticule();                              // Step 2: get the longitude and latitude
 
-    console.log("d3Select will select the", this.refMap.current)   // Step 3: let d3-selection get the canvas to draw
-    const canvas = d3Select(this.refMap.current)
+    const canvas = d3Select(this.refMap.current)                  // Step 3: let d3-selection get the canvas to draw
       .attr("width", width)
       .attr("height", height);
 
@@ -50,7 +48,6 @@ class WorldMap extends Component {
     let path = geoPath().projection(projection).context(context);
 
     land.forEach( ele => {                                        // Step 4.1 : draw countries' border
-      console.log("ele",ele)
       context.fillStyle = '#B3DDEF';
       context.strokeStyle = '#000';
       context.globalAlpha = 0.7;
