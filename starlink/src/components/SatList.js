@@ -46,7 +46,11 @@ class SatList extends Component {
               renderItem={item => ( // this "item" stands for an entry of dataSource. (like an iterator)
                 <List.Item
                   actions={[
-                    <Checkbox dataInfo={item} onChange={this.onChange} checked={this.state.selected.some( entry => entry.satid === item.satid )}/>
+                    <Checkbox
+                      dataInfo={item}
+                      onChange={this.onChange}
+                      checked={this.state.selected.some( entry => entry.satid === item.satid )}
+                    />
                   ]}
                 >
                   <List.Item.Meta
