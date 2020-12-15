@@ -63,7 +63,8 @@ class Main extends Component {
     });
 
     // step3: make a HTTPRequest using axios
-    axios.get(url)
+    axios
+      .get(url)
       .then(response => {
         console.log("response: ", response.data)
         this.setState({
@@ -76,8 +77,12 @@ class Main extends Component {
       })
   }
 
-  onShowMap = (satList) => {
-    console.log(satList)
+  onShowMap = (selected) => {
+    this.setState(preState => ({
+      ...preState,
+      isLoadingMap: true,
+      satList: [...selected]
+    }));
   }
 
 }
