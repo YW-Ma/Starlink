@@ -6,6 +6,14 @@
 }
 
 .sat-list {
-    height: 400px;
+    height: 480px;
     overflow: scroll;
 }
+
+.spin-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+

@@ -12,6 +12,7 @@ class SatList extends Component {
     return (
       <div className="sat-list-box">
         <Button
+          type="primary"
           className="sat-list-btn"
           size="large"
         >
