@@ -4,3 +4,8 @@
     margin-top: 15px;
     border-radius: 6px;
 }
+
+.sat-list {
+    height: 400px;
+    overflow: scroll;
+}

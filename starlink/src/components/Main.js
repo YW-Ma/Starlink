@@ -20,6 +20,8 @@ class Main extends Component {
             onShow={this.showSatellite}
           />
           <SatList
+            sateInfo={this.state.satInfo}
+            isLoading={this.state.isLoadingList}
             className="sat-list"
           />
         </div>
