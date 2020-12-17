@@ -13,8 +13,11 @@ class Main extends Component {
     satInfo: null,        // get the info from API
     settings: null,       // c->p, data come from setting. Main provides a call back to setting
     isLoadingList: false, // loading icon
+    satList:[]            // selected satellite
+    // we need to pass satInfo and settings to WorldMap
   }
   render() {
+    const {isLoadingList, satInfo, satList, settings} = this.state;
     return (
       <div className="main">
         <div className="left-side">
@@ -23,14 +26,18 @@ class Main extends Component {
             onShow={this.showSatellite}
           />
           <SatList
-            sateInfo={this.state.satInfo}
-            isLoading={this.state.isLoadingList}
+            sateInfo={satInfo}
+            isLoading={isLoadingList}
             onShowMap={this.onShowMap}
+            onClear={this.onClear}
             className="sat-list"
           />
         </div>
         <div className="right-side">
-          <WorldMap/>
+          <WorldMap
+            satList={satList}
+            settings={settings}
+          />
         </div>
       </div>
     );
@@ -50,7 +57,7 @@ class Main extends Component {
     this.fetchSatellite(setting);
   }
 
-  fetchSatellite= (setting) => {
+  fetchSatellite = setting => {
     // fetch data from N2YO
     // step1: get setting values
     const {latitude, longitude, elevation, altitude} = setting;
@@ -77,11 +84,18 @@ class Main extends Component {
       })
   }
 
-  onShowMap = (selected) => {
+  onShowMap = selected => { //selected is satList
     this.setState(preState => ({
       ...preState,
       isLoadingMap: true,
       satList: [...selected]
+    }));
+  }
+
+  onClear = () => {
+    this.setState(preState => ({
+      ...preState,
+      satList: []
     }));
   }
 

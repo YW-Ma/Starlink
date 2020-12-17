@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { List, Avatar, Button, Checkbox, Spin } from "antd";
 import satelliteLogo from "../assets/images/satellite.svg"
+import {select} from "d3-selection"
 
 // 显示返回的数据 - List
 // 显示loading - main的state和修改
@@ -11,7 +12,7 @@ class SatList extends Component {
   constructor() {
     super();
     this.state = {
-      selected: []
+      selected: [] //satList
     };
   }
 
@@ -21,14 +22,24 @@ class SatList extends Component {
     const satList = this.props.sateInfo ? this.props.sateInfo.above : [];
     return (
       <div className="sat-list-box">
-        <Button
-          type="primary"
-          className="sat-list-btn"
-          size="large"
-          onClick={this.onTrackOnMap}
-        >
-          Track on the map
-        </Button>
+        <div className="sat-list-buttons">
+          <Button
+            type="primary"
+            className="sat-list-btn"
+            size="large"
+            onClick={this.onTrackOnMap}
+          >
+            Track on the map
+          </Button>
+          <Button
+            type="primary"
+            className="sat-list-clear-btn"
+            size="large"
+            onClick={this.onClear}
+          >
+            Clear
+          </Button>
+        </div>
         <hr />
         {/*handle loading*/}
         {
@@ -108,6 +119,14 @@ class SatList extends Component {
 
   onTrackOnMap = () => {
     this.props.onShowMap(this.state.selected);
+  }
+
+  onClear = () => {
+    this.props.onClear();
+    this.setState(preState => ({
+      ...preState,
+      selected: []
+    }))
   }
 }
 

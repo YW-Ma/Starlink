@@ -33,7 +33,7 @@ class WorldMap extends Component {
 
   generateMap = land => {
     const projection = geoKavrayskiy7()                            // Step 1: configure the projection method
-      .scale(170)
+      .scale(180)
       //.translate(width / 2, height / 2)                          // NOTICE: translate need an array
       .translate([width / 2, height / 2])
       .precision(.1);
