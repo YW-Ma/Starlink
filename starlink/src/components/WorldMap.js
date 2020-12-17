@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
+import { Spin } from "antd"
 
-import {feature} from "topojson-client"
+import { feature } from "topojson-client"
 import { geoKavrayskiy7 } from 'd3-geo-projection';
 import { geoGraticule, geoPath } from 'd3-geo';
 import { select as d3Select } from 'd3-selection';
@@ -11,6 +12,7 @@ import * as d3Scale from "d3-scale";
 
 import {WORLD_MAP_URL, SATELLITE_POSITION_URL, SAT_API_KEY} from "../constants"
 
+
 const width = 1024;
 const height = 768;
 
@@ -18,6 +20,8 @@ class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
+      isDrawing: false
     }
     this.refMap = React.createRef();                                  // use ref to get a virtual node. So as we can draw on it.
     this.refTrack = React.createRef();
@@ -41,6 +45,10 @@ class WorldMap extends Component {
       const {latitude, longitude, elevation, altitude, duration} = this.props.settings;
       const endTime = duration * 60; // 1s in duration parameter equals to 60s in real world
 
+      this.setState({
+        isLoading: true
+      });
+
       // step1: fetch data from API - a list of promise object
       const urls = this.props.satList.map(sat => {
         // Request: /positions/{id}/{observer_lat}/{observer_lng}/{observer_alt}/{seconds}//&apiKey={API_KEY}
@@ -53,9 +61,18 @@ class WorldMap extends Component {
       // step2: handle urls and extract results - Promise.all(...array...).then(results=>{})
       Promise.all(urls)
         .then(results => { // results are all returned promises from each axios.get(url)
-          const data = results.map(item => item.data);
-          // drawing position
-          this.track(data);
+          this.setState({
+            isLoading: false,
+            isDrawing: true
+          });
+          if (!prevState.isDrawing) {
+            const data = results.map(item => item.data);
+            this.track(data);
+          } else {
+            const oHint = document.getElementsByClassName("hint")[0];
+            oHint.innerHTML =
+              "Please wait for these satellite animation to finish before selection new ones!";
+          }
         })
         .catch(e => {
           console.error("failed -> ", e);
@@ -86,7 +103,7 @@ class WorldMap extends Component {
       // 1 sec in display == 1 minute in real world (corresponding to accelerated positions we got)
       let time = new Date(initialTime.getTime() + 60 * timePassed);
 
-      context2.clearRect(0, 0, width, height);
+      context2.clearRect(0, 0, width, height); // clear the rect area.
 
       context2.font = "bold 20px sans-serif";
       context2.fillStyle = "#333";
@@ -95,6 +112,9 @@ class WorldMap extends Component {
 
       if (i >= len) {                   // timer cannot excced the length of positions array
         clearInterval(timer);
+        this.setState({ isDrawing: false });
+        const oHint = document.getElementsByClassName("hint")[0];
+        oHint.innerHTML = "";
         return;
       }
 
@@ -180,10 +200,17 @@ class WorldMap extends Component {
   }
 
   render() {
+    const { isLoading } = this.state;
     return (
       <div className="map-box">
+        {isLoading ? (
+          <div className="spinner">
+            <Spin tip="Loading..." size="large" />
+          </div>
+        ) : null}
         <canvas className="map" ref={this.refMap}/>
         <canvas className="track" ref={this.refTrack}/>
+        <div className="hint" />
       </div>
     );
   }
