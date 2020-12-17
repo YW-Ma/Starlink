@@ -45,7 +45,7 @@ class SatList extends Component {
         {
           isLoading
             ?
-            <div>
+            <div className="sat-loading">
               <Spin tip="Loading" size="large"></Spin>
             </div>
             :

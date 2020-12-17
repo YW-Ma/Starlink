@@ -21,3 +21,7 @@
     display: flex;
     justify-content: space-around;
 }
+
+.sat-loading {
+    margin-top: 240px;
+}

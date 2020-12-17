@@ -6,7 +6,7 @@ import { geoKavrayskiy7 } from 'd3-geo-projection';
 import { geoGraticule, geoPath } from 'd3-geo';
 import { select as d3Select } from 'd3-selection';
 
-import {WORLD_MAP_URL} from "../constants"
+import {WORLD_MAP_URL, SATELLITE_POSITION_URL, SAT_API_KEY} from "../constants"
 
 const width = 1024;
 const height = 768;
@@ -18,8 +18,8 @@ class WorldMap extends Component {
       map: null
     }
     this.refMap = React.createRef();                                  // use ref to get a virtual node. So as we can draw on it.
+    this.refTrack = React.createRef();
   }
-
 
   componentDidMount() {
     axios.get(WORLD_MAP_URL)
@@ -31,6 +31,40 @@ class WorldMap extends Component {
       .catch(e => console.error("err in fetch world map data", e));
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // determine whether prevProps and current props is different. Make a HTTPRequest only when props changed.
+    if(prevProps.satList !== this.props.satList) {
+      const {latitude, longitude, elevation, altitude, duration} = this.props.settings;
+      const endTime = duration * 60; // 1s in duration parameter equals to 60s in real world
+
+      // step1: fetch data from API - a list of promise object
+      const urls = this.props.satList.map(sat => {
+        // Request: /positions/{id}/{observer_lat}/{observer_lng}/{observer_alt}/{seconds}//&apiKey={API_KEY}
+        const { satid } = sat;
+        const url = `/api/${SATELLITE_POSITION_URL}/${satid}/${latitude}/${longitude}/${altitude}/${endTime}/&apiKey=${SAT_API_KEY}`;
+        // send ajax call
+        return axios.get(url);
+      })
+
+      // step2: handle urls and extract results - Promise.all(...array...).then(results=>{})
+      Promise.all(urls)
+        .then(results => { // results are all returned promises from each axios.get(url)
+          const data = results.map(item => item.data);
+          // drawing position
+          this.track(data);
+        })
+        .catch(e => {
+          console.error("failed -> ", e);
+        });
+    }
+  }
+
+  // a callback used in componentDidUpdate - draw satellites on the second canvas.
+  track = data => {
+    console.log(data)
+  }
+
+  // a callback used in componentDidMount - draw a world map on the first canvas
   generateMap = land => {
     const projection = geoKavrayskiy7()                            // Step 1: configure the projection method
       .scale(180)
@@ -73,6 +107,7 @@ class WorldMap extends Component {
     return (
       <div className="map-box">
         <canvas className="map" ref={this.refMap}/>
+        <canvas className="track" ref={this.refTrack}/>
       </div>
     );
   }
