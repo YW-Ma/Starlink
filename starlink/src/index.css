@@ -5,6 +5,7 @@
 @import "./styles/Main.css";
 @import "./styles/SatSetting.css";
 @import "./styles/SatList.css";
+@import "./styles/WorldMap.css";
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

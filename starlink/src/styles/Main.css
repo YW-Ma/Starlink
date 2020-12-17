@@ -16,3 +16,7 @@ two columns (left, right)
     grid-template-rows: 3fr 5fr;
     padding: 10px;
 }
+
+.right-side {
+    display: grid;
+}
