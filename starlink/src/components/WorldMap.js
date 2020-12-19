@@ -10,7 +10,7 @@ import { timeFormat as d3TimeFormat } from "d3-time-format";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import * as d3Scale from "d3-scale";
 
-import {WORLD_MAP_URL, SATELLITE_POSITION_URL, SAT_API_KEY} from "../constants"
+import {WORLD_MAP_URL, SATELLITE_POSITION_URL, SAT_API_KEY, ANIMATION_SPEED, RERENDER_PER_SECOND} from "../constants"
 
 
 const width = 1024;
@@ -43,7 +43,7 @@ class WorldMap extends Component {
     // determine whether prevProps and current props is different. Make a HTTPRequest only when props changed.
     if(prevProps.satList !== this.props.satList) {
       const {latitude, longitude, elevation, altitude, duration} = this.props.settings;
-      const endTime = duration * 60; // 1s in duration parameter equals to 60s in real world
+      const endTime = duration * ANIMATION_SPEED; // speed up
 
       this.setState({
         isLoading: true
@@ -123,9 +123,8 @@ class WorldMap extends Component {
         this.drawSat(info, positions[i]);
       });
 
-      i += 60;
-    }, 1000)
-
+      i += ANIMATION_SPEED / RERENDER_PER_SECOND;
+    }, 1000 / RERENDER_PER_SECOND)
   }
 
   // a helper function used in track to draw each satellite

@@ -101,7 +101,7 @@ class SatSettingForm extends Component {
                 }
               ],
             })(<InputNumber placeholder="Please input Duration"
-                            min={0} max={90}
+                            min={0} max={120}
                             style={{width: "100%"}}
             />)
           }
