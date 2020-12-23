@@ -1,6 +1,7 @@
 # Starlink
 
 ## About Starlink Project
+A project that aims to provide high speed internet access across the globe via numerous satellites.\
 [https://www.starlink.com/](https://www.starlink.com/)
 
 ## About N2YO.com
