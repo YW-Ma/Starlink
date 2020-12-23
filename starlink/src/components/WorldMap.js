@@ -85,7 +85,6 @@ class WorldMap extends Component {
     // validate the input
     if (!data || !data[0].hasOwnProperty('positions')) {
       throw new Error("no position data", data);
-      return;
     }
 
     const len = data[0].positions.length;

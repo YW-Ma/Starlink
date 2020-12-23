@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { List, Avatar, Button, Checkbox, Spin } from "antd";
 import satelliteLogo from "../assets/images/satellite.svg"
-import {select} from "d3-selection"
 
 // 显示返回的数据 - List
 // 显示loading - main的state和修改
