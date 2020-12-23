@@ -4,7 +4,7 @@
 [https://www.starlink.com/](https://www.starlink.com/)
 
 ## About N2YO.com
-N2YO provides a group of [RESTful API](https://www.n2yo.com/api/#positions)
+N2YO provides a group of [RESTful API](https://www.n2yo.com/api/#positions).\
 The purpose of the API is to provide data for software/web developers to build satellite tracking or prediction applications.
  
 # Getting Started with Create React App
